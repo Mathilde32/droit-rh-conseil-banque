@@ -21,7 +21,7 @@ export default {
 		extend: {
 			fontFamily: {
 				'serif': ['EB Garamond', 'Georgia', 'serif'],
-				'sans': ['Inter', 'sans-serif'],
+				'sans': ['Borloo', 'Open Sans', 'Inter', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -29,9 +29,9 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
-				// Banque de France brand colors
+				// Banque de France official colors
 				'bdf-blue': {
-					DEFAULT: '#002654',
+					DEFAULT: '#003399',
 					50: '#f0f4f8',
 					100: '#d9e2ec',
 					200: '#bcccdc',
@@ -41,29 +41,33 @@ export default {
 					600: '#486581',
 					700: '#334e68',
 					800: '#243b53',
-					900: '#102a43',
-					950: '#002654',
+					900: '#00276f',
+					950: '#003399',
 				},
+				'bdf-dark-blue': '#00276f',
+				'bdf-light-blue': '#4a7ec4',
+				'bdf-pearl-blue': '#819bc4',
+				'bdf-yellow': '#f8d107',
 				'bdf-gold': {
-					DEFAULT: '#FFD700',
+					DEFAULT: '#f8d107',
 					50: '#fffef7',
 					100: '#fffce8',
 					200: '#fff6c5',
 					300: '#ffed97',
 					400: '#ffe168',
 					500: '#ffd42a',
-					600: '#FFD700',
+					600: '#f8d107',
 					700: '#e6c200',
 					800: '#cc9f00',
 					900: '#997700',
 				},
 				primary: {
-					DEFAULT: '#002654',
+					DEFAULT: '#003399',
 					foreground: '#ffffff'
 				},
 				secondary: {
 					DEFAULT: '#f8fafc',
-					foreground: '#002654'
+					foreground: '#003399'
 				},
 				destructive: {
 					DEFAULT: '#dc2626',
@@ -74,16 +78,16 @@ export default {
 					foreground: '#64748b'
 				},
 				accent: {
-					DEFAULT: '#FFD700',
-					foreground: '#002654'
+					DEFAULT: '#f8d107',
+					foreground: '#003399'
 				},
 				popover: {
 					DEFAULT: '#ffffff',
-					foreground: '#002654'
+					foreground: '#003399'
 				},
 				card: {
 					DEFAULT: '#ffffff',
-					foreground: '#002654'
+					foreground: '#003399'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
