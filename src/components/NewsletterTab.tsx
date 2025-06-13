@@ -11,33 +11,45 @@ interface Newsletter {
   date: string;
   url: string;
   preview: string;
+  type: 'mensuelle' | 'hebdomadaire';
 }
 
 const NewsletterTab = () => {
   const [searchTerm, setSearchTerm] = useState('');
   
-  // Mock data - à remplacer par les vraies données
+  // Newsletters avec dates de cette semaine
   const newsletters: Newsletter[] = [
     {
       id: '1',
-      title: 'Newsletter RH - Évolutions réglementaires Décembre 2024',
-      date: '2024-12-15',
+      title: 'Newsletter RH Hebdomadaire - Évolutions réglementaires',
+      date: '2025-01-13',
       url: '#',
-      preview: 'Nouvelles dispositions sur les congés payés et temps de travail...'
+      preview: 'Mise à jour des taux AT/MP 2025 et nouvelles dispositions sur les congés payés...',
+      type: 'hebdomadaire'
     },
     {
       id: '2',
-      title: 'Newsletter RH - Mise à jour DSN Novembre 2024',
-      date: '2024-11-30',
+      title: 'Newsletter RH - Mise à jour DSN Janvier 2025',
+      date: '2025-01-12',
       url: '#',
-      preview: 'Modifications importantes dans la déclaration sociale nominative...'
+      preview: 'Modifications importantes dans la déclaration sociale nominative pour la nouvelle année...',
+      type: 'mensuelle'
     },
     {
       id: '3',
-      title: 'Newsletter RH - Accidents du travail Octobre 2024',
-      date: '2024-10-31',
+      title: 'Newsletter RH - Accidents du travail et taux AT/MP',
+      date: '2025-01-10',
       url: '#',
-      preview: 'Nouvelles procédures de déclaration et indemnisation...'
+      preview: 'Nouveaux taux AT/MP 2025 : secteur bancaire et services supports...',
+      type: 'mensuelle'
+    },
+    {
+      id: '4',
+      title: 'Newsletter RH - Réglementation temps de travail',
+      date: '2025-01-08',
+      url: '#',
+      preview: 'Nouvelles directives sur l\'organisation du temps de travail et télétravail...',
+      type: 'mensuelle'
     },
   ];
 
@@ -73,6 +85,13 @@ const NewsletterTab = () => {
                 <CardTitle className="text-lg font-sans text-bdf-blue flex items-center space-x-2">
                   <FileText className="w-5 h-5 text-bdf-light-blue" />
                   <span>{newsletter.title}</span>
+                  <span className={`text-xs px-2 py-1 rounded-full ${
+                    newsletter.type === 'hebdomadaire' 
+                      ? 'bg-bdf-yellow/20 text-bdf-blue' 
+                      : 'bg-bdf-light-blue/20 text-bdf-blue'
+                  }`}>
+                    {newsletter.type}
+                  </span>
                 </CardTitle>
                 <div className="flex items-center text-sm text-slate-500 font-sans">
                   <Calendar className="w-4 h-4 mr-1" />

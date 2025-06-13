@@ -34,6 +34,68 @@ const ChatbotSTIP = () => {
     scrollToBottom();
   }, [messages]);
 
+  const getResponseForQuestion = (question: string) => {
+    const lowerQuestion = question.toLowerCase();
+    
+    // Réponse spécifique pour le taux AT/MP
+    if (lowerQuestion.includes('taux at/mp') || 
+        lowerQuestion.includes('taux at mp') ||
+        (lowerQuestion.includes('taux') && lowerQuestion.includes('accident'))) {
+      return {
+        content: `**Réponse réglementaire :**
+
+Les concierges de la Banque de France sont couverts par deux mécanismes : le taux AT/MP collectif secteur banque (tous établissements bancaires) ; le taux réduit "services supports", en raison de leur fonction non exposée.
+
+Le taux AT/MP applicable aux concierges et employés d'immeubles (code risque 70.3CB) en tarification collective ou mixte est fixé à **3,08 % (taux net)**.
+
+Ce taux est défini par l'arrêté ministériel du 27 décembre 2023, valable pour 2025.
+
+**Sources consultées :**`,
+        sources: [
+          {
+            title: 'Arrêté du 27 décembre 2023 - Taux AT/MP 2025',
+            url: 'https://legifrance.gouv.fr',
+            date: '2023-12-27',
+            theme: 'Accident du travail / maladie professionnelle'
+          },
+          {
+            title: 'Code de la Sécurité sociale, art. L242-5',
+            url: 'https://legifrance.gouv.fr',
+            date: '2025-01-01',
+            theme: 'Paie / Cotisations / DSN'
+          }
+        ],
+        actionSuggestion: 'Vérifiez le barème IJSS du mois en cours'
+      };
+    }
+
+    // Réponse générique pour autres questions
+    return {
+      content: `**Réponse réglementaire :**
+
+Concernant votre question "${question}", voici les dernières informations réglementaires :
+
+Les dispositions récentes du Code du travail précisent que les modalités de traitement ont été mises à jour selon les derniers décrets.
+
+**Sources consultées :**`,
+      sources: [
+        {
+          title: 'Code du travail, art. L3141-1',
+          url: 'https://legifrance.gouv.fr',
+          date: '2024-12-01',
+          theme: 'Congés / Absences / Temps de travail'
+        },
+        {
+          title: 'Bulletin Officiel des Impôts',
+          url: 'https://bofip.impots.gouv.fr',
+          date: '2024-11-15',
+          theme: 'Paie / Cotisations / DSN'
+        }
+      ],
+      actionSuggestion: 'Vérifiez le barème IJSS du mois en cours'
+    };
+  };
+
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading) return;
 
@@ -48,34 +110,17 @@ const ChatbotSTIP = () => {
     setInputValue('');
     setIsLoading(true);
 
-    // Simulation réponse IA avec sources STIP
+    // Simulation réponse IA avec réponse spécifique ou générique
     setTimeout(() => {
+      const response = getResponseForQuestion(userMessage.content);
+      
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: `**Réponse réglementaire :**
-
-Concernant votre question "${userMessage.content}", voici les dernières informations réglementaires :
-
-Les dispositions récentes du Code du travail précisent que les modalités de traitement des congés ont été mises à jour selon les derniers décrets.
-
-**Sources consultées :**`,
+        content: response.content,
         sender: 'assistant',
         timestamp: new Date(),
-        sources: [
-          {
-            title: 'Code du travail, art. L3141-1',
-            url: 'https://legifrance.gouv.fr',
-            date: '2024-12-01',
-            theme: 'Congés / Absences / Temps de travail'
-          },
-          {
-            title: 'Bulletin Officiel des Impôts',
-            url: 'https://bofip.impots.gouv.fr',
-            date: '2024-11-15',
-            theme: 'Paie / Cotisations / DSN'
-          }
-        ],
-        actionSuggestion: 'Vérifiez le barème IJSS du mois en cours'
+        sources: response.sources,
+        actionSuggestion: response.actionSuggestion
       };
 
       setMessages(prev => [...prev, assistantMessage]);
